@@ -36,7 +36,7 @@ function ComunasPage() {
       setComunas(data.data || data);
     } catch (err) {
       setError(err.response?.data?.message || 'Error al cargar las comunas.');
-      console.error("Error fetching comunas:", err);
+      console.error("Error al cargar las comunas:", err);
     } finally {
       setLoading(false);
     }
@@ -132,7 +132,7 @@ function ComunasPage() {
       setNewComunaData(initialComunaState);
     } catch (err) {
       setError(err.response?.data?.message || 'Error al crear la comuna. Verifica los datos y tu sesión.');
-      console.error("Error creating comuna:", err);
+      console.error("Error al eliminar comuna:", err);
     }
   };
 
@@ -143,8 +143,8 @@ function ComunasPage() {
         await comunasService.deleteComuna(id);
         setComunas(comunas.filter(comuna => comuna._id !== id));
       } catch (err) {
-        setError(err.response?.data?.message || 'Error al eliminar la comuna. ¿Tienes permisos?');
-        console.error("Error deleting comuna:", err);
+        setError(err.response?.data?.message || 'Error al eliminar la comuna.');
+        console.error("Error aleliminar comuna:", err);
       }
     }
   };
@@ -184,7 +184,7 @@ function ComunasPage() {
       setEditingComunaData(initialComunaState);
     } catch (err) {
       setError(err.response?.data?.message || 'Error al actualizar la comuna. Verifica los datos y tu sesión.');
-      console.error("Error updating comuna:", err);
+      console.error("Error actulizando comuna:", err);
     }
   };
 

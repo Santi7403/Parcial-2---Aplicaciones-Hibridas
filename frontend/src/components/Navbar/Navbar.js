@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext'; 
+import { useAuth } from '../../contexts/AuthContext';
 
 function Navbar() {
-  const { isAuthenticated, user, logout } = useAuth(); 
+  const { isAuthenticated, user, logout } = useAuth();
 
   return (
     <nav style={{

@@ -15,17 +15,19 @@ const PORT = process.env.PORT || 5000;
 app.use(cors()); 
 app.use(express.json());
 
+app.use('/api/users', userRouter); 
+
 app.use('/api/comunas', comunasRouter);
 app.use('/api/vecinos', vecinosRouter);
 
 app.get('/', (req, res) => {
-  res.send('API REST de Comunas y Vecinos funcionando correctamente!');
+  res.send('API REST de Comunas y Vecinos funcionando correctamente!');
 });
 
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB funciona joya'))
-  .catch(err => console.error('Error de conexión a MongoDB:', err));
+  .then(() => console.log('MongoDB funciona joya'))
+  .catch(err => console.error('Error de conexión a MongoDB:', err));
 
 app.listen(PORT, () => {
-  console.log(`Servidor backend escuchando en el puerto ${PORT}`);
+  console.log(`Servidor backend escuchando en el puerto ${PORT}`);
 });

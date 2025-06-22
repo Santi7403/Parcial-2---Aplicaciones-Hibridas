@@ -75,7 +75,7 @@ function VecinosPage() {
       setNewVecinoData(initialVecinoState);
     } catch (err) {
       setError(err.response?.data?.message || 'Error al crear el vecino. ¿Estás logueado o faltan datos?');
-      console.error("Error creating vecino:", err);
+      console.error("Error al crear el vecino:", err);
     }
   };
   const handleDeleteVecino = async (id) => {
@@ -86,7 +86,7 @@ function VecinosPage() {
         setVecinos(vecinos.filter(vecino => vecino._id !== id));
       } catch (err) {
         setError(err.response?.data?.message || 'Error al eliminar el vecino. ¿Tienes permisos?');
-        console.error("Error deleting vecino:", err);
+        console.error("Error al eliminar el vecino:", err);
       }
     }
   };
@@ -130,7 +130,7 @@ function VecinosPage() {
       setEditingVecinoData(initialVecinoState);
     } catch (err) {
       setError(err.response?.data?.message || 'Error al actualizar el vecino. ¿Estás logueado o faltan datos?');
-      console.error("Error updating vecino:", err);
+      console.error("Error al actualizar el vecino:", err);
     }
   };
 

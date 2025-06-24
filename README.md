@@ -1,99 +1,100 @@
-# PARCIAL 2 – APLICACIONES HÍBRIDAS - SANTIAGO MARTINEZ DONDE
-Este es un proyecto FullStack desarrollado como parte del segundo parcial de la materia Aplicaciones Híbridas.
-El proyecto implementa una aplicación de gestión de Comunas y Vecinos, utilizando el stack MERN (MongoDB, Express.js, React.js, Node.js).
 
-## Características Principales
+# PARCIAL 2 – APLICACIONES HÍBRIDAS - SANTIAGO MARTÍNEZ DONDE
 
-### Backend (API REST - Node.js con Express)
--   **API RESTful:** Desarrollada con Node.js y Express.js, sirviendo como el cerebro de la aplicación.
--   **Autenticación JWT:** Implementación robusta de JSON Web Tokens (JWT) para la gestión segura de usuarios (registro e inicio de sesión).
--   **Base de Datos NoSQL:** Utiliza MongoDB (a través de Mongoose) para el almacenamiento de datos.
--   **Gestión de Usuarios:** Permite el registro y la autenticación de usuarios.
--   **Entidades:** Gestión completa (CRUD) de dos entidades principales: **Comunas** y **Vecinos**.
-    -   **Comunas:** Incluye campos complejos como datos de comisarías (comunal y vecinales anidadas) y barrios (array de strings).
-    -   **Vecinos:** Permite asociar vecinos a una Comuna específica a través de referencias (`ObjectId`).
--   **Populate:** Al obtener vecinos, se popula automáticamente la información de la comuna a la que pertenecen.
--   **Estructura Modular:** Backend organizado en controladores, modelos, routers y middlewares.
+Este es un proyecto FullStack hecho para el segundo parcial de la materia Aplicaciones Híbridas. La aplicación permite gestionar Comunas y Vecinos usando el stack MERN: MongoDB, Express, React y Node.js.
 
-### Frontend (Aplicación Web - React.js)
--   **SPA (Single Page Application):** Desarrollada con React.js, ofreciendo una experiencia de usuario fluida y dinámica.
--   **Componentes Funcionales y Hooks:** Utilización de las características modernas de React para una lógica de componentes clara y reutilizable.
--   **Enrutamiento Declarativo:** Implementación de React Router DOM para la navegación entre distintas vistas (Home, Login, Registro, Comunas, Vecinos).
--   **Separación de Lógica:** Clara división entre la lógica de la UI y la lógica de interacción con la API (mediante servicios).
--   **Manejo de Estado Global:** Uso del Context API de React para gestionar el estado de autenticación de forma global.
--   **Consumo de API:** Interacción con el Backend mediante `axios` para todas las operaciones CRUD y autenticación.
--   **Validación de Formularios:** Implementación de validaciones básicas en el cliente.
--   **Interfaz de Usuario:** Diseño limpio y funcional que permite la visualización, creación, edición y eliminación de Comunas y Vecinos.    
+## Funcionalidades
 
-## Cómo Levantar el Proyecto????
+### Backend (API - Node.js con Express)
 
-### Requisitos Previos:
+- API hecha con Node y Express. Se encarga de manejar toda la lógica del servidor.
+- Autenticación con JWT para registro e inicio de sesión seguros.
+- Base de datos MongoDB para guardar la información.
+- Se pueden registrar e iniciar sesión usuarios.
+- Hay dos tipos de datos principales:
+  - **Comunas:** con comisarías (comunal y vecinales) y una lista de barrios.
+  - **Vecinos:** se pueden asociar a una comuna.
+- Al mostrar vecinos, también se muestra su comuna automáticamente.
+- Código ordenado en archivos: controladores, modelos, rutas y middlewares.
 
-Tener instalado en tu sistema:
--   [Node.js](https://nodejs.org/en/download/) 
--   [npm](https://www.npmjs.com/get-npm) 
--   [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) 
--   [Git](https://git-scm.com/downloads)
+### Frontend (App web - React)
 
-### 1. Configuración de la Base de Datos (MongoDB Atlas)
+- Aplicación de una sola página (SPA) hecha con React.
+- Usa componentes funcionales y hooks modernos.
+- Navegación con React Router (Home, Login, Registro, Comunas, Vecinos).
+- Separa la lógica de la interfaz y las conexiones con la API.
+- Manejo de sesión con Context API.
+- Conexión con el backend usando `axios`.
+- Formularios con validaciones básicas.
+- Interfaz sencilla para ver, agregar, editar y borrar comunas y vecinos.
 
-1.  Crea una cuenta gratuita en [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register).
-2.  Crea un nuevo Cluster
-3.  Una vez creado el cluster, ve a la sección **"Database Access"** (en Security) y crea un nuevo usuario de base de datos (`username` y `password`). Anótalos.
-4.  Ve a la sección **"Network Access"** (en Security) y añade tu dirección IP actual a la lista de acceso (o temporalmente, para desarrollo, puedes añadir `0.0.0.0/0` para permitir acceso desde cualquier lugar, ¡pero esto no es seguro para producción!).
-5.  Ve a **"Databases"** (en Deployment), haz clic en "Connect" en tu cluster, selecciona "Connect your application", elige el driver Node.js y **copia la "Connection String"**. Se verá algo como:
-    `mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority`
-    **Reemplaza `<username>` y `<password>`** con los que creaste.
-    **Añade el nombre de tu base de datos al final** (ej. `/parcial`) para que la cadena quede así:
-    `mongodb+srv://tu_usuario_db:tu_password_db@cluster0.xxxxx.mongodb.net/parcial?retryWrites=true&w=majority`
+## ¿Cómo ejecutar el proyecto?
 
-### 2. Configuración del Backend
+### Requisitos:
 
-1.  **Navega a la carpeta del Backend:**
-    ```bash
-    cd apiComunas
-    ```
-2.  **Crea un archivo `.env`** en la raíz de esta carpeta (`apiComunas/.env`).
-    Copia y pega el siguiente contenido, reemplazando los valores:
-    ```
-    MONGODB_URI=TU_CADENA_DE_CONEXION_DE_MONGODB_ATLAS_CON_USUARIO_Y_PASSWORD
-    PORT=5000
-    JWT_SECRET=UN_SECRETO_LARGO_Y_ALEATORIO_PARA_JWT (ej: genera uno con 'node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"')
-    JWT_EXPIRES_IN=1h
-    ```
-3.  **Instala las dependencias del Backend:**
-    ```bash
-    npm install
-    ```
-4.  **Inicia el servidor del Backend:**
-    ```bash
-    npm install -g nodemon # Instala nodemon globalmente si no lo tienes
-    nodemon index.js
-    ```
-    El servidor debería mostrar en la consola: "MongoDB conectado correctamente" y "Servidor backend escuchando en el puerto 5000". **Deja esta terminal abierta.**
+Debés tener instalado:
+- Node.js  
+- npm  
+- MongoDB Atlas  
+- Git  
 
-### 3. Configuración del Frontend
+### 1. Configurar MongoDB Atlas
 
-1.  **Abre una NUEVA TERMINAL.**
-2.  **Navega a la carpeta del Frontend:**
-    ```bash
-    cd frontend
-    ```
-3.  **Instala las dependencias del Frontend:**
-    ```bash
-    npm install
-    ```
-4.  **Inicia la aplicación de React:**
-    ```bash
-    npm start
-    ```
-    Esto abrirá tu aplicación en el navegador, generalmente en `http://localhost:3000`.
+1. Crear una cuenta en [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register).
+2. Crear un cluster.
+3. En “Database Access”, crear un usuario con nombre y contraseña.
+4. En “Network Access”, permitir tu IP (o usar `0.0.0.0/0` solo para pruebas).
+5. En “Databases”, hacer clic en "Connect", luego "Connect your application", copiar el enlace, completar con tu usuario, contraseña y agregar el nombre de tu base al final.  
+   Ejemplo:
+   ```
+   mongodb+srv://usuario:contraseña@cluster0.xxxxx.mongodb.net/parcial?retryWrites=true&w=majority
+   ```
 
-### 4. Uso de la Aplicación
+### 2. Configurar el Backend
 
-1.  Una vez que ambas terminales estén corriendo sin errores y tu navegador muestre la aplicación React en `http://localhost:3000`.
-2.  **Regístrate:** Crea una nueva cuenta de usuario en la página de registro (`/register`).
-3.  **Inicia Sesión:** Utiliza tus nuevas credenciales para iniciar sesión (`/login`).
-4.  **Gestiona Comunas:** Navega a la sección de Comunas (`/comunas`) para crear, ver, editar y eliminar datos de comunas.
-5.  **Gestiona Vecinos:** Navega a la sección de Vecinos (`/vecinos`) para crear, ver, editar y eliminar datos de vecinos, asociándolos a las comunas que hayas creado.
+1. Abrir una terminal y entrar a la carpeta:
+   ```
+   cd apiComunas
+   ```
+2. Crear un archivo `.env` con este contenido:
+   ```
+   MONGODB_URI=TU_CADENA_DE_CONEXIÓN
+   PORT=5000
+   JWT_SECRET=UN_SECRETO_LARGO
+   JWT_EXPIRES_IN=1h
+   ```
+3. Instalar dependencias:
+   ```
+   npm install
+   ```
+4. Iniciar el servidor:
+   ```
+   npm install -g nodemon
+   nodemon index.js
+   ```
+   Si todo está bien, va a mostrar “MongoDB conectado correctamente” y que el servidor está corriendo en el puerto 5000.
 
+### 3. Configurar el Frontend
+
+1. Abrir otra terminal.
+2. Entrar a la carpeta:
+   ```
+   cd frontend
+   ```
+3. Instalar dependencias:
+   ```
+   npm install
+   ```
+4. Iniciar la app:
+   ```
+   npm start
+   ```
+   Se abrirá en el navegador en `http://localhost:3000`.
+
+### 4. Usar la app
+
+1. Asegurarse de que tanto backend como frontend estén funcionando.
+2. Registrarse en la sección de registro.
+3. Iniciar sesión.
+4. Entrar a **Comunas** para crear, ver, editar o borrar comunas.
+5. Entrar a **Vecinos** para hacer lo mismo, vinculando vecinos a comunas.
